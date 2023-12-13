@@ -79,7 +79,14 @@ const findPeopleByName = (personName, done) => {
 };
 
 const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+  // Use Person.findOne to only return one result
+  Person.findOne({
+    favoriteFoods: food
+  },
+  (err, singleFood) => {
+    if (err) return console.log(err);
+    done(null, singleFood);
+  });
 };
 
 const findPersonById = (personId, done) => {
