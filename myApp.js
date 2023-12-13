@@ -26,6 +26,25 @@ let personSchema =  new mongoose.Schema({
 // Create a new Model
 let Person = mongoose.model("Person", personSchema);
 
+// Array of people to create
+const arrayOfPeople = [
+  {
+    name: "Josue",
+    age: 32,
+    favoriteFoods: ["pizza", "hamburger", "ramen noodles"]
+  },
+  {
+    name: "Alejandro",
+    age: 24,
+    favoriteFoods: ["chicken", "pork", "lettuce"]
+  },
+  {
+    name: "Fiona",
+    age: 25,
+    favoriteFoods: ["avocado", "tomatoes", "tuna fish"]
+  }
+];
+
 const createAndSavePerson = (done) => {
     // Create an instance of a new person
     const person = new Person({
@@ -42,7 +61,10 @@ const createAndSavePerson = (done) => {
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-
+  Person.create(arrayOfPeople, (err, people) => {
+    if (err) return console.log(err);
+    done(null, people);
+  });
 };
 
 const findPeopleByName = (personName, done) => {
